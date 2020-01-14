@@ -4,6 +4,7 @@ $(document).on('submit', '#search-form', function(ev){
   // Don't submit multiple times, don't automatically submit the form to the server
   ev.stopImmediatePropagation();
   ev.preventDefault();
+  $('#loading-cover').show('fast');
 
   // Determine which button was clicked
   var active_button = $(document.activeElement).val();
@@ -81,5 +82,6 @@ $(document).on('submit', '#search-form', function(ev){
       mainDiv.appendChild(conditionHeader);
       mainDiv.appendChild(list)
     }
+    $('#loading-cover').hide('slow');
   });
 });
