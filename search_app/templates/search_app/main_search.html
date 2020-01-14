@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+{% load bootstrap3 %}
+{% load static %}
+<html>
+  <head>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'disease_search/css/custom.css'%}">
+  </head>
+
+  <body>
+    <div class="custom-title">
+      <h3 align="center">What seems to be the problem?</h3>
+	  </div>
+    <div class="smaller-width" id="form-div">
+      <form method="POST" id="search-form">
+          {% csrf_token %}
+          {% bootstrap_form search_form %}
+          <div class="text-right">
+            <input type="submit" value="Search XML" class="btn btn-primary">
+            <input type="submit" value="Search DB" class="btn btn-primary">
+          </div>
+      </form>
+    </div>
+  </body>
+
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script type="text/javascript" src="{% static 'disease_search/js/search.js'%}"></script>
