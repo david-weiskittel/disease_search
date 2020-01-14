@@ -21,14 +21,8 @@ def parse_medical_conditions_XML():
     Function to parse the XML from ORPHDATA for rare diseases with associated phenotypes
     """
     # Only parse the XML if nothing is in the database.
-    # This will be awful for perfomance when run; however, we only need to run it once for a given server, so we can take the performance hit to improve performance when doing a live query.
-    # This function actually can't finish in Heroku's allowable time if run in the foreground, so the ideal solution would be to create a background job to allow it to finish.
-    # However, for the purposes of this project, I'd like to avoid adding a task queue to the application.
-    # Therefore, if this function didn't finish before Heroku cut it off, then keep track of where we are in the list and resume saving the next time it starts up
     text_file = open("parsed_conditions.txt", "w+")
     if models.Condition.objects.count() > 1:
-        print("Starting the loop")
-        count = 1
         # Use ET to parse through the XML
         tree = ET.parse('condition_list.xml')
         root = tree.getroot()
@@ -38,9 +32,6 @@ def parse_medical_conditions_XML():
             if child.tag == 'Disorder':
                 condition_line = "Condition-" + child.find('Name').text + "\n"
                 text_file.write(condition_line)
-
-                print("Count = ", count)
-                count += 1
 
             # When we find a symptom
             elif child.tag == 'HPOTerm':
@@ -52,6 +43,11 @@ def parse_medical_conditions_txt():
     """
     Parse the txt file, keeping track of the line count so we don't have to start from scratch if the server is killed
     """
+    # Only parse the TXT if nothing is in the database.
+    # This will be awful for perfomance when run; however, we only need to run it once for a given server, so we can take the performance hit to improve performance when doing a live query.
+    # This function actually can't finish in Heroku's allowable time if run in the foreground, so the ideal solution would be to create a background job to allow it to finish.
+    # However, for the purposes of this project, I'd like to avoid adding a task queue to the application.
+    # Therefore, if this function didn't finish before Heroku cut it off, then keep track of where we are in the list and resume saving the next time it starts up
     if models.ConditionCount.objects.count() < 1:
         condition_count = models.ConditionCount()
         condition_count.count = 0
@@ -75,7 +71,6 @@ def parse_medical_conditions_txt():
                     current_disorder = existing_condition
                 condition_count.count = line_count
                 condition_count.save()
-                print(line_count)
 
             # The line has stored a symptom
             else:
