@@ -40,7 +40,7 @@ $(document).on('submit', '#search-form', function(ev){
 
     var mainDiv = document.getElementById('form-div');
 
-    // If we were unable to find any medical terms in the query
+    // Check if we were able to find any symptoms in the query
     if (!data.symptoms_found){
       // Add a header explaining no results were found
       symptomHeader = document.createElement('h4');
