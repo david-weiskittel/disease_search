@@ -60,6 +60,8 @@ def get_conditions(request):
                     conditions = [id for id in conditions if condition_counts[id] == symptom_count]
                     # Conditions are already in order, so no need to sort. Just remove the duplicates here while maintaining the current order
                     [updated_conditions.append(x) for x in conditions if x not in updated_conditions]
+                else:
+                    updated_conditions = conditions
 
 
             data['symptoms_found'] = symptoms_found
@@ -117,7 +119,7 @@ def get_conditions_brute_force(request):
                     # Add each condition whose number of appearances in the list is identical to the number of symptoms
                     conditions = [id for id in conditions if condition_counts[id] == len(symptoms)]
                     conditions = list(set(conditions))
-                    conditions.sort()
+                conditions.sort()
 
                 data['symptoms_found'] = symptoms_found
                 data['symptoms'] = symptoms

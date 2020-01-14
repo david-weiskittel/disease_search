@@ -26,7 +26,7 @@ SECRET_KEY = '^^j+9e5iu^j-$&ase$4q-oygb476u2=9vvs648p=bib#@qilib'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['young-springs-19598.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['young-springs-19598.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
